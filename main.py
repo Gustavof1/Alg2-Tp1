@@ -69,24 +69,19 @@ class Grafo:
 
         return False
 
-#função que transforma lista de tuplas em um dicionário,
-# 0 : (coordx, coordy) , 1 : (coordx, coordy)...
-def tuplasIntDict(lista_de_tuplas):
-    return {tupla_: i for i, tupla_ in enumerate(lista_de_tuplas)}
-
-# Função para verificar se dados 3 pontos eles formam um triângulo convexo
-def isConvex(p1, p2, p3):
-    return (p3[1] - p1[1]) * (p2[0] - p1[0]) - (p3[0] - p1[0]) * (p2[1] - p1[1]) > 0
-
-# Função para verificar se um ponto está dentro de um triângulo
-def inTriangle(pt, v1, v2, v3):
-    b1 = not isConvex(pt,v1, v2)
-    b2 = not isConvex(pt,v2, v3)
-    b3 = not isConvex(pt,v3, v1)
-    return ((b1 == b2) and (b2 == b3))
-
 # Função para realizar a triangulação do polígono usando o método do corte de orelhas
 def earClippingTriangulation(polygon):
+    # Função para verificar se dados 3 pontos eles formam um triângulo convexo
+    def isConvex(p1, p2, p3):
+        return (p3[1] - p1[1]) * (p2[0] - p1[0]) - (p3[0] - p1[0]) * (p2[1] - p1[1]) > 0
+
+    # Função para verificar se um ponto está dentro de um triângulo
+    def inTriangle(pt, v1, v2, v3):
+        b1 = not isConvex(pt,v1, v2)
+        b2 = not isConvex(pt,v2, v3)
+        b3 = not isConvex(pt,v3, v1)
+        return ((b1 == b2) and (b2 == b3))
+
     triangles = []
     global triangulos_plot
     vertices = polygon[:]
@@ -97,7 +92,7 @@ def earClippingTriangulation(polygon):
             p2 = vertices[i + 1]
             p3 = vertices[i + 2]
             
-            #se os 3 pontos analizados formam um triangulo convexo
+            #se os 3 pontos analisados formam um triangulo convexo
             if isConvex(p1, p2, p3):
                 ear = True
                 #para cada j, se ele não faz parte/está dentro do triângulo, vertice i+1 não é orelha
@@ -134,7 +129,9 @@ def vertexColorPolygon(polygon, triangles):
     #ligação último no primeiro, n no 0
     g.connectVertices(len(polygon)-1, 0)
 
-    dicionario_indice_vertices = tuplasIntDict(polygon)
+    #Transforma lista de tuplas em um dicionário,
+    # 0 : (coordx, coordy) , 1 : (coordx, coordy)...
+    dicionario_indice_vertices = {tupla_: i for i, tupla_ in enumerate(polygon)}
 
     #triangulo tem 3 vertices
     #transforma em conexão, v1->v2, v2->v3, v3->v1
@@ -148,12 +145,9 @@ def vertexColorPolygon(polygon, triangles):
     for a,b in conexoes:
         g.connectVertices(dicionario_indice_vertices.get(a),dicionario_indice_vertices.get(b))
 
-    
     #rodar vertex color no grafo
     array_cores = [0] * len(polygon)
     g.vertexColor(3,array_cores,0) #no escopo, array de cores é modificado, logo pode ser usado em seguida
-
-    
 
     vertex_colors = {}
     #se vértice preto, coloração errada
