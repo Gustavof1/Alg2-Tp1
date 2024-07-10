@@ -39,6 +39,50 @@ def readPolygon():
     coordenadas = [(float(int(data[i].split('/')[0])/int(data[i].split('/')[1])),float(int(data[i+1].split('/')[0])/int(data[i+1].split('/')[1]))) for i in range(1, n_vertices*2+1,2)]
     return coordenadas
 
+# Função para realizar a triangulação do polígono usando o método do corte de orelhas
+def earClippingTriangulation(polygon):
+    # Função para verificar se dados 3 pontos eles formam um triângulo convexo
+    def isConvex(p1, p2, p3):
+        return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0]) > 0
+
+    # Função para verificar se um ponto está dentro de um triângulo
+    def inTriangle(pt, v1, v2, v3):
+        b1 = not isConvex(pt,v1, v2)
+        b2 = not isConvex(pt,v2, v3)
+        b3 = not isConvex(pt,v3, v1)
+        return ((b1 == b2) and (b2 == b3))
+
+    triangles = []
+    global triangulos_plot
+    vertices = polygon[:]
+    while len(vertices) > 3:
+        for i in range(len(vertices)):  
+
+            p1 = vertices[i]
+            p2 = vertices[i + 1]
+            p3 = vertices[i + 2]
+            
+            #se os 3 pontos analisados formam um triangulo convexo
+            if isConvex(p1, p2, p3):
+                orelha = True
+                #para cada j, se ele não faz parte/está dentro do triângulo, vertice i+1 não é ponta da orelha
+                for j in vertices:
+                    if not (j in (p1,p2,p3)) and inTriangle(j, p1, p2, p3):
+                        orelha = False
+                        triangulos_plot.append((p1, p2, p3))
+                        break
+                
+                if orelha:
+                    triangles.append((p1, p2, p3))
+                    triangulos_plot.append((p1, p2, p3))
+                    del vertices[i + 1]
+                    break
+    
+    #faz ultimo triangulo
+    triangles.append((vertices[0], vertices[1], vertices[2]))
+    triangulos_plot.append((vertices[0], vertices[1], vertices[2]))
+    return triangles
+
 #grafo não direcionado, representação por matriz de adjacências
 class Grafo:
     def __init__(self, vertices):
@@ -68,50 +112,6 @@ class Grafo:
                 array_cores[vertice_atual] = 0
 
         return False
-
-# Função para realizar a triangulação do polígono usando o método do corte de orelhas
-def earClippingTriangulation(polygon):
-    # Função para verificar se dados 3 pontos eles formam um triângulo convexo
-    def isConvex(p1, p2, p3):
-        return (p3[1] - p1[1]) * (p2[0] - p1[0]) - (p3[0] - p1[0]) * (p2[1] - p1[1]) > 0
-
-    # Função para verificar se um ponto está dentro de um triângulo
-    def inTriangle(pt, v1, v2, v3):
-        b1 = not isConvex(pt,v1, v2)
-        b2 = not isConvex(pt,v2, v3)
-        b3 = not isConvex(pt,v3, v1)
-        return ((b1 == b2) and (b2 == b3))
-
-    triangles = []
-    global triangulos_plot
-    vertices = polygon[:]
-    
-    while len(vertices) > 3:
-        for i in range(len(vertices)):
-            p1 = vertices[i]
-            p2 = vertices[i + 1]
-            p3 = vertices[i + 2]
-            
-            #se os 3 pontos analisados formam um triangulo convexo
-            if isConvex(p1, p2, p3):
-                ear = True
-                #para cada j, se ele não faz parte/está dentro do triângulo, vertice i+1 não é orelha
-                for j in vertices:
-                    if not (j in (p1,p2,p3)) and inTriangle(j, p1, p2, p3):
-                        ear = False
-                        triangulos_plot.append((p1, p2, p3))
-                        break
-                
-                if ear:
-                    triangles.append((p1, p2, p3))
-                    triangulos_plot.append((p1, p2, p3))
-                    del vertices[i + 1]
-                    break
-    
-    #faz ultimo triangulo
-    triangles.append((vertices[0], vertices[1], vertices[2]))
-    triangulos_plot.append((vertices[0], vertices[1], vertices[2]))
-    return triangles
 
 # Função para colorir os vértices do polígono
 def vertexColorPolygon(polygon, triangles):
@@ -376,10 +376,23 @@ def plotVertexColor(polygon, triangles, vertex_colors):
     
     fig.show()
 
+try:
+    poligono = readPolygon()
+except:
+    print("Não foi possível ler o arquivo.")
+    exit()
 
-poligono = readPolygon()
-triangulos = earClippingTriangulation(poligono)
-cores_dos_vertices = vertexColorPolygon(poligono, triangulos)
+try:
+    triangulos = earClippingTriangulation(poligono)
+except:
+    print("Não foi possível triangular o polígono.")
+    exit()
+
+try:
+    cores_dos_vertices = vertexColorPolygon(poligono, triangulos)
+except:
+    print("Não foi possível colorir os vértices.")
+    exit()
 
 
 # Use para criar uma plot somente do polígono
@@ -389,6 +402,17 @@ cores_dos_vertices = vertexColorPolygon(poligono, triangulos)
 # use para criar a animação somente da coloração dos vértices
 # plotVertexColor(poligono, triangulos, cores_dos_vertices) 
 
-plotCompleto(poligono, triangulos, cores_dos_vertices)
+try:
+    plotCompleto(poligono, triangulos, cores_dos_vertices)
+except:
+    print("Não foi possível plotar o grafico")
+    exit()
+
+contagem = {'green': 0, 'purple': 0, 'yellow': 0}
+
+for cor in cores_dos_vertices.values():
+    if cor in contagem:
+        contagem[cor] = contagem[cor] + 1
 
 
+print("São necessários ", min(contagem.values()), " guardas para vigiar a galeria de arte.")
