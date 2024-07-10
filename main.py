@@ -168,6 +168,7 @@ def plotCompleto(polygon, triangles, vertex_colors):
     fig.add_trace(go.Scatter(visible=True, x=x + (x[0],), y=y + (y[0],), mode='lines', name='Polígono'))
     
     step_index = 1
+    step_2visibles = []
     x_cumulative = ()
     y_cumulative = ()
 
@@ -179,12 +180,24 @@ def plotCompleto(polygon, triangles, vertex_colors):
             x_cumulative += tx
             y_cumulative += ty
             fig.add_trace(go.Scatter(visible=False,
-                                    x=x + (x[0],) + x_cumulative + (tx[0],),
-                                    y=y + (y[0],) + y_cumulative + (ty[0],),
+                                    x=x + (x[0],),
+                                    y=y + (y[0],),
                                     mode='lines', 
                                     fill='none',
-                                    name='Triangulacao'+str(step_index),
-                                    showlegend=False))
+                                    line=dict(color='blue'),
+                                    name='Polígono',
+                                    showlegend=True))
+            fig.add_trace(go.Scatter(visible=False,
+                                    x=x_cumulative + (tx[0],),
+                                    y=y_cumulative + (ty[0],),
+                                    mode='lines', 
+                                    fill='toself',
+                                    line=dict(color='green'),
+                                    name='Polígono Triangulado',
+                                    showlegend=True))
+            step_2visibles.append(True)
+            step_2visibles.append(True)
+            step_index = step_index + 2
         else:
             fig.add_trace(go.Scatter(visible=False,
                                     x=x + (x[0],) + tx + (tx[0],),
@@ -192,9 +205,12 @@ def plotCompleto(polygon, triangles, vertex_colors):
                                     mode='lines', 
                                     fill='none',
                                     line=dict(color='red',dash='dot'),
-                                    name='Algum vértice dentro do triângulo'+str(step_index)))
-            
-        step_index = step_index + 1
+                                    name='Vértice dentro do Triangulo',
+                                    showlegend=True))
+            step_2visibles.append(False)
+            step_index = step_index + 1
+
+        
 
     triangulacao_completa = step_index-1
 
@@ -209,13 +225,20 @@ def plotCompleto(polygon, triangles, vertex_colors):
         step_index = step_index + 1
     
     steps = []
-    for i in range(len(fig.data)):
+    i = 0
+    while i < len(fig.data):
+        pular2 = False
+
         step = dict(
             method="update",
             args=[{"visible": [False] * len(fig.data)},
                 {"title": "Passo: " + str(i)}],
         )
         step["args"][0]["visible"][i] = True
+        
+        if i < triangulacao_completa and step_2visibles[i]:
+           step["args"][0]["visible"][i+1] = True 
+           pular2 = True
 
         if i >= triangulacao_completa: #triangulação completa sempre visivel depois de terminar
             step["args"][0]["visible"][triangulacao_completa] = True 
@@ -223,6 +246,10 @@ def plotCompleto(polygon, triangles, vertex_colors):
                 step["args"][0]["visible"][j] = True
 
         steps.append(step)
+        if pular2:
+            i += 2
+        else:
+            i += 1
 
     sliders = [dict(
         active=0,
@@ -251,7 +278,7 @@ def plotPolygon(polygon):
     fig.show()
 
 #Plota somente a triangulação
-def plotTriangulacao(polygon, triangles):
+def plotCompleto(polygon, triangles, vertex_colors):
     global triangulos_plot
     fig = go.Figure()
     
@@ -259,6 +286,7 @@ def plotTriangulacao(polygon, triangles):
     fig.add_trace(go.Scatter(visible=True, x=x + (x[0],), y=y + (y[0],), mode='lines', name='Polígono'))
     
     step_index = 1
+    step_2visibles = []
     x_cumulative = ()
     y_cumulative = ()
 
@@ -270,12 +298,24 @@ def plotTriangulacao(polygon, triangles):
             x_cumulative += tx
             y_cumulative += ty
             fig.add_trace(go.Scatter(visible=False,
-                                    x=x + (x[0],) + x_cumulative + (tx[0],),
-                                    y=y + (y[0],) + y_cumulative + (ty[0],),
+                                    x=x + (x[0],),
+                                    y=y + (y[0],),
                                     mode='lines', 
                                     fill='none',
-                                    name='Triangulacao'+str(step_index),
-                                    showlegend=False))
+                                    line=dict(color='blue'),
+                                    name='Polígono',
+                                    showlegend=True))
+            fig.add_trace(go.Scatter(visible=False,
+                                    x=x_cumulative + (tx[0],),
+                                    y=y_cumulative + (ty[0],),
+                                    mode='lines', 
+                                    fill='toself',
+                                    line=dict(color='green'),
+                                    name='Polígono Triangulado',
+                                    showlegend=True))
+            step_2visibles.append(True)
+            step_2visibles.append(True)
+            step_index = step_index + 2
         else:
             fig.add_trace(go.Scatter(visible=False,
                                     x=x + (x[0],) + tx + (tx[0],),
@@ -283,20 +323,34 @@ def plotTriangulacao(polygon, triangles):
                                     mode='lines', 
                                     fill='none',
                                     line=dict(color='red',dash='dot'),
-                                    name='Algum vértice dentro do triângulo'+str(step_index)))
-            
-        step_index = step_index + 1
+                                    name='Vértice dentro do Triangulo',
+                                    showlegend=True))
+            step_2visibles.append(False)
+            step_index = step_index + 1
+
+    triangulacao_completa = step_index-1
     
     steps = []
-    for i in range(len(fig.data)):
+    i = 0
+    while i < len(fig.data):
+        pular2 = False
+
         step = dict(
             method="update",
             args=[{"visible": [False] * len(fig.data)},
                 {"title": "Passo: " + str(i)}],
         )
         step["args"][0]["visible"][i] = True
+        
+        if i < triangulacao_completa and step_2visibles[i]:
+           step["args"][0]["visible"][i+1] = True 
+           pular2 = True
 
         steps.append(step)
+        if pular2:
+            i += 2
+        else:
+            i += 1
 
     sliders = [dict(
         active=0,
@@ -304,7 +358,7 @@ def plotTriangulacao(polygon, triangles):
         steps=steps
     )]
 
-    fig.update_layout(title='Triangulação por Corte de Orelhas', 
+    fig.update_layout(title='Triangulação por Corte de Orelhas e Coloração dos vértices', 
                       xaxis_title='X', 
                       yaxis_title='Y',
                       sliders=sliders)
@@ -385,7 +439,7 @@ except:
 try:
     triangulos = earClippingTriangulation(poligono)
 except:
-    print("Não foi possível triangular o polígono.")
+    print("Não foi possível triangular o polígono. Possivel problema\nPolígono não padronizado-Não está ordenado ou não é simples.")
     exit()
 
 try:
