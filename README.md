@@ -10,9 +10,9 @@ Requisitos: </br>
 -Qualquer browser capaz de executar javascript. </br>
 
 Como executar: </br>
-Por parâmetro - python3 main.py <caminho do arquivo de entrada> </br>
+Por parâmetro - python3 main.py {caminho do arquivo de entrada} </br>
 ou </br>
-Por input - python3 main.py < <caminho do arquivo de entrada> </br>
+Por input - python3 main.py < {caminho do arquivo de entrada} </br>
 
 Exemplos de arquivos de entrada: </br>
 https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </br>
