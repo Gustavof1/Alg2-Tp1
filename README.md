@@ -2,7 +2,7 @@ Trabalho 1 de Algoritmos 2 do Curso de Ciência da Computação da Universidade 
 2024/1</br>
 
 Geometria Computacional - Problema da Galeria de Arte (Art Gallery Problem)</br>
-Solução com Triangulação de Polígono e Problema da Coloração de Vértices</br>
+Solução com Triangulação de Polígono e Coloração de Vértices</br>
 
 Feito pelos alunos: </br>
 Gustavo Ferreira Dias </br>
