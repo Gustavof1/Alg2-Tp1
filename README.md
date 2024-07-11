@@ -10,7 +10,8 @@ Vinicius Trindade Dias Abel </br>
 
 <b>Relatório interativo disponível em: <Link github pages disponível depois que passar o repositório para público> </b></br>
 
-<b>Execução interativa (exemplo único) disponível em: https://colab.research.google.com/drive/1Bk8CUan3J6DpA_e4B2eqX9m9Lh-16MQV?usp=sharing ou no arquivo main.ipynb</b></br>
+<b>Execução interativa (exemplo único) disponível em:</b> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Bk8CUan3J6DpA_e4B2eqX9m9Lh-16MQV?usp=sharing]</br>
+ou no arquivo main.ipynb</br>
 
 Requisitos: </br>
 -Python 3 ou superior; </br>
@@ -21,6 +22,7 @@ Como executar: </br>
 Por parâmetro - python3 main.py {caminho do arquivo de entrada} </br>
 ou </br>
 Por input - python3 main.py < {caminho do arquivo de entrada} </br>
+ou </b>
 
 Mais de arquivos de entrada disponíveis em: </br>
 https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </br>
