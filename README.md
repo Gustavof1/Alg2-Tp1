@@ -18,5 +18,5 @@ Exemplos de arquivos de entrada: </br>
 https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </br>
 
 
-Documentação estática:
+Documentação estática:<br>
 ![alt text](https://github.com/Gustavof1/Alg2-Tp1/blob/main/Documentação-Disponível_no_Pages.png?raw=true)
