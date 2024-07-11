@@ -19,4 +19,4 @@ https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </
 
 
 Documentação estática:
-![alt text](https://github.com/Gustavof1/Alg2-Tp1/blob/main/Documentação-Disponível_no_Pages.pdf?raw=true)
+![alt text](https://github.com/Gustavof1/Alg2-Tp1/blob/main/Documentação-Disponível_no_Pages.png?raw=true)
