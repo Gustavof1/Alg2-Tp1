@@ -16,3 +16,7 @@ Por input - python3 main.py < {caminho do arquivo de entrada} </br>
 
 Exemplos de arquivos de entrada: </br>
 https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </br>
+
+
+Documentação estática:
+![alt text](https://github.com/Gustavof1/Alg2-Tp1/blob/main/Documentação-Disponível_no_Pages.pdf?raw=true)
