@@ -8,6 +8,7 @@ Feito pelos alunos: </br>
 Gustavo Ferreira Dias </br>
 Vinicius Trindade Dias Abel </br>
 
+<b>Execução interativa (exemplo único) disponível em: https://colab.research.google.com/drive/1Bk8CUan3J6DpA_e4B2eqX9m9Lh-16MQV?usp=sharing ou no arquivo main.ipynb</b>
 <b>Relatório interativo disponível em: <Link github pages disponível depois que passar o repositório para público> </b></br>
 
 Requisitos: </br>
