@@ -10,7 +10,7 @@ Vinicius Trindade Dias Abel </br>
 
 <b>Relatório interativo disponível em: <Link github pages disponível depois que passar o repositório para público> </b></br>
 
-<b>Execução interativa (exemplo único) disponível em:</b> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Bk8CUan3J6DpA_e4B2eqX9m9Lh-16MQV?usp=sharing]</br>
+<b>Execução interativa (exemplo único) disponível em:</b> [![Open In Colab](https://colab.research.google.com/drive/1Bk8CUan3J6DpA_e4B2eqX9m9Lh-16MQV?usp=sharing)]</br>
 ou no arquivo main.ipynb</br>
 
 Requisitos: </br>
