@@ -2,7 +2,7 @@ Trabalho feito pelos alunos: </br>
 Gustavo Ferreira Dias </br>
 Vinicius Trindade Dias Abel </br>
 
-Relatório disponível em: <Link github pages disponível depois que passar o repositório para público> </br>
+<b>Relatório interativo disponível em: <Link github pages disponível depois que passar o repositório para público> </b></br>
 
 Requisitos: </br>
 -Python 3 ou superior; </br>
