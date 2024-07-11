@@ -20,7 +20,7 @@ Por parâmetro - python3 main.py {caminho do arquivo de entrada} </br>
 ou </br>
 Por input - python3 main.py < {caminho do arquivo de entrada} </br>
 
-Exemplos de arquivos de entrada: </br>
+Mais de arquivos de entrada disponíveis em: </br>
 https://www.ic.unicamp.br/~cid/Problem-instances/Art-Gallery/AGPVG/index.html </br>
 
 
